@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Crop Disease Detection System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+  <!-- Animated background -->
+  <div class="bg-canvas">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-brand">
+        <span class="brand-icon">🌿</span>
+        <div>
+          <h1 class="brand-name" id="site-title">Crop Disease Detection System</h1>
+          <p class="brand-sub" id="site-subtitle">AI-powered crop protection</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">
+          <span id="theme-icon">☀️</span>
+        </button>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" data-lang="od" onclick="setLang('od')">ଓଡ଼</button>
+        </div>
+        {% if session.get('user') %}
+        <div class="user-chip">
+          <span class="user-dot"></span>
+          <span>{{ session['user'] }}</span>
+          <a href="/logout" class="chip-logout">×</a>
+        </div>
+        {% endif %}
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <!-- Upload section -->
+      <div class="glass-card upload-card">
+        <div class="card-label">UPLOAD LEAF IMAGE</div>
+        <div class="drop-zone" id="upload-zone"
+             ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)"
+             ondrop="handleDrop(event)" onclick="document.getElementById('file-input').click()"
+             tabindex="0" role="button">
+          <div id="upload-placeholder">
+            <div class="drop-icon">
+              <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+                <circle cx="28" cy="28" r="27" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+                <path d="M28 12 C18 12 10 20 10 28 C10 36 18 44 28 44 C38 44 46 36 46 28 C46 20 38 12 28 12 Z" fill="var(--accent)" opacity="0.08"/>
+                <path d="M28 12 C18 12 10 20 10 28 C10 36 18 44 28 44 C38 44 46 36 46 28 C46 20 38 12 28 12 Z" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
+                <path d="M22 30 L28 24 L34 30" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="28" y1="24" x2="28" y2="36" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="drop-title" id="upload-hint">Drop your leaf image here</p>
+            <p class="drop-sub">or click to browse &nbsp;·&nbsp; PNG JPG WEBP BMP</p>
+          </div>
+          <img id="preview-img" src="" alt="" style="display:none"/>
+        </div>
+        <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleFileSelect(event)"/>
+        <button class="btn-primary" id="btn-analyze" onclick="analyzeImage()" disabled>
+          <span id="btn-text">Analyze Plant</span>
+          <span class="spinner" id="btn-spinner" style="display:none"></span>
+        </button>
+      </div>
+
+      <!-- Result section -->
+      <div class="glass-card result-card" id="result-card" style="display:none">
+        <div class="status-bar" id="result-status">
+          <span id="status-icon">🔬</span>
+          <span id="status-text">Analysis Complete</span>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-label" id="lbl-disease">Disease</div>
+            <div class="stat-val disease-val" id="res-disease">—</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" id="lbl-confidence">Confidence</div>
+            <div class="conf-track"><div class="conf-fill" id="conf-bar"></div></div>
+            <div class="stat-val accent-val" id="res-confidence">0%</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label" id="lbl-language">Language</div>
+            <div class="stat-val" id="res-language">English</div>
+          </div>
+        </div>
+
+        <div class="top3-wrap">
+          <div class="section-label" id="lbl-top3">TOP PREDICTIONS</div>
+          <ul id="top3-list" class="top3-list"></ul>
+        </div>
+
+        <div class="remedy-card">
+          <div class="remedy-top">
+            <span>💊</span>
+            <span class="section-label" id="lbl-remedy">RECOMMENDED REMEDY</span>
+          </div>
+          <p id="res-remedy" class="remedy-text"></p>
+        </div>
+
+        <button class="btn-outline" onclick="resetUI()" id="btn-reset">↩ Analyze Another</button>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      <span>Built with TensorFlow + Flask · PlantVillage (15 classes)</span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

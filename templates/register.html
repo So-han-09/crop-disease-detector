@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Register | Crop Disease Detection System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Outfit',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#060818;overflow:hidden;position:relative;}
+    .orb{position:fixed;border-radius:50%;filter:blur(80px);z-index:0;}
+    .orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(16,185,129,0.4),transparent);top:-150px;right:-150px;animation:o1 9s ease-in-out infinite;}
+    .orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(99,102,241,0.4),transparent);bottom:-100px;left:-100px;animation:o2 11s ease-in-out infinite;}
+    @keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,40px)}}
+    @keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-50px)}}
+    .wrap{position:relative;z-index:1;width:100%;max-width:420px;padding:1rem;animation:up 0.6s cubic-bezier(0.16,1,0.3,1) both;}
+    @keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    .card{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:28px;padding:2.5rem 2rem;box-shadow:0 25px 50px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);}
+    .brand{text-align:center;margin-bottom:2rem;}
+    .brand-icon{font-size:3rem;display:block;margin-bottom:0.75rem;}
+    .brand h1{font-size:1.6rem;font-weight:800;color:#fff;letter-spacing:-0.5px;}
+    .brand p{font-size:0.82rem;color:rgba(255,255,255,0.5);margin-top:0.3rem;}
+    .flash{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;padding:0.75rem 1rem;border-radius:12px;font-size:0.85rem;margin-bottom:1.25rem;text-align:center;}
+    .success{background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;}
+    .field{margin-bottom:1.25rem;}
+    .field label{display:block;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.5);margin-bottom:0.5rem;}
+    .field input{width:100%;padding:0.9rem 1rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:#fff;font-family:'Outfit',sans-serif;font-size:0.95rem;outline:none;transition:all 0.2s;}
+    .field input:focus{border-color:rgba(16,185,129,0.7);background:rgba(255,255,255,0.12);box-shadow:0 0 0 3px rgba(16,185,129,0.2);}
+    .field input::placeholder{color:rgba(255,255,255,0.25);}
+    .btn{width:100%;padding:0.95rem;margin-top:0.5rem;background:linear-gradient(135deg,#059669,#10b981);color:#fff;border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.25s;box-shadow:0 8px 24px rgba(16,185,129,0.4);}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(16,185,129,0.6);}
+    .divider{text-align:center;color:rgba(255,255,255,0.25);font-size:0.78rem;margin:1.25rem 0;position:relative;}
+    .divider::before,.divider::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:rgba(255,255,255,0.1);}
+    .divider::before{left:0}.divider::after{right:0}
+    .link{text-align:center;font-size:0.85rem;color:rgba(255,255,255,0.45);}
+    .link a{color:#6ee7b7;text-decoration:none;font-weight:600;}
+    .foot{text-align:center;margin-top:1.5rem;font-size:0.7rem;color:rgba(255,255,255,0.25);}
+  </style>
+</head>
+<body>
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="wrap">
+    <div class="card">
+      <div class="brand">
+        <span class="brand-icon">🌱</span>
+        <h1>Create Account</h1>
+        <p>Join Crop Disease Detection System AI</p>
+      </div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}{% for cat,msg in messages %}<div class="flash {% if cat=='success' %}success{% endif %}">{{ msg }}</div>{% endfor %}{% endif %}
+      {% endwith %}
+      <form method="POST" action="/register">
+        <div class="field"><label>Full Name</label><input type="text" name="fullname" placeholder="Your full name" required/></div>
+        <div class="field"><label>Username</label><input type="text" name="username" placeholder="Choose a username" required/></div>
+        <div class="field"><label>Password</label><input type="password" name="password" placeholder="Create a strong password" required/></div>
+        <button type="submit" class="btn">Create Account →</button>
+      </form>
+      <div class="divider">or</div>
+      <div class="link">Already have an account? <a href="/login">Sign in</a></div>
+    </div>
+    <div class="foot">🌿 Crop Disease Detection System · TensorFlow + Flask</div>
+  </div>
+</body>
+</html>
