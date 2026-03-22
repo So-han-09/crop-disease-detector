@@ -1,0 +1,7 @@
+data/PlantVillage/
+models/plant_model.h5
+models/plant_model.keras
+__pycache__/
+*.pyc
+*.pyo
+static/uploads/
