@@ -5,6 +5,54 @@
   <title>Crop Disease Detection System</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/static/css/style.css"/>
+  <style>
+    /* ── HELP BUTTON ── */
+    .help-float-btn{
+      display:flex;align-items:center;gap:0.4rem;
+      padding:5px 14px;background:var(--glass);border:1px solid var(--border);
+      border-radius:50px;font-size:0.78rem;font-weight:600;color:var(--muted);
+      cursor:pointer;backdrop-filter:blur(10px);transition:all 0.2s;
+      font-family:'Outfit',sans-serif;
+    }
+    .help-float-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+    /* ── HELP MODAL ── */
+    .modal-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,0.75);
+      backdrop-filter:blur(12px);z-index:200;
+      display:none;align-items:center;justify-content:center;padding:1rem;
+    }
+    .modal-overlay.open{display:flex;}
+    .modal{
+      background:var(--glass2);backdrop-filter:blur(20px);
+      border:1px solid var(--border);border-radius:24px;
+      padding:2rem;max-width:580px;width:100%;max-height:85vh;
+      overflow-y:auto;position:relative;
+      animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
+      box-shadow:0 30px 80px var(--shadow);
+    }
+    @keyframes modalIn{from{opacity:0;transform:scale(0.92) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .modal-close{
+      position:absolute;top:1rem;right:1rem;width:34px;height:34px;
+      border-radius:50%;background:var(--glass);border:1px solid var(--border);
+      color:var(--text);font-size:1.1rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;transition:all 0.2s;
+    }
+    .modal-close:hover{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.4);color:var(--red);}
+    .modal-title{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:0.25rem;}
+    .modal-sub{font-size:0.75rem;color:var(--muted);margin-bottom:1.25rem;}
+
+    .lang-tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;}
+    .ltab{padding:0.4rem 1rem;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;}
+    .ltab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+    .help-section{margin-bottom:1.25rem;}
+    .help-section-title{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border);}
+    .help-item{display:flex;gap:0.85rem;margin-bottom:0.85rem;align-items:flex-start;}
+    .help-icon{width:38px;height:38px;border-radius:10px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;}
+    .help-item-name{font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:0.18rem;}
+    .help-item-desc{font-size:0.78rem;color:var(--muted);line-height:1.55;}
+  </style>
 </head>
 <body>
   <!-- Animated background -->
@@ -30,11 +78,13 @@
         <button class="icon-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">
           <span id="theme-icon">☀️</span>
         </button>
+        <button class="help-float-btn" onclick="openHelp()">❓ <span id="help-btn-label">Help</span></button>
         <div class="lang-toggle">
           <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
           <button class="lang-btn" data-lang="od" onclick="setLang('od')">ଓଡ଼</button>
         </div>
         {% if session.get('user') %}
+        <a href="/history" class="history-link">📋 History</a>
         <div class="user-chip">
           <span class="user-dot"></span>
           <span>{{ session['user'] }}</span>
@@ -99,6 +149,16 @@
           </div>
         </div>
 
+        <!-- Severity Box -->
+        <div id="severity-box" style="display:none;flex-direction:column;gap:0.5rem;padding:1rem 1.2rem;border-radius:14px;border:1.5px solid #818cf8;background:rgba(129,140,248,0.08);margin-bottom:0.25rem;">
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span id="sev-icon" style="font-size:1.3rem;">🔬</span>
+            <span style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);">Severity Level</span>
+            <span id="sev-level" style="font-size:1rem;font-weight:800;margin-left:auto;">—</span>
+          </div>
+          <p id="sev-advice" style="font-size:0.88rem;line-height:1.6;color:var(--text);"></p>
+        </div>
+
         <div class="top3-wrap">
           <div class="section-label" id="lbl-top3">TOP PREDICTIONS</div>
           <ul id="top3-list" class="top3-list"></ul>
@@ -123,6 +183,241 @@
   </div>
 
   <div class="toast" id="toast"></div>
+
+  <!-- ── HELP MODAL ── -->
+  <div class="modal-overlay" id="helpModal" onclick="closeOnOverlay(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeHelp()">×</button>
+      <div class="modal-title">❓ Help Guide / ସାହାଯ୍ୟ ଗାଇଡ</div>
+      <div class="modal-sub" id="modal-sub-text">How every button works on this page</div>
+
+      <div class="lang-tabs">
+        <button class="ltab active" onclick="switchHelpLang('en',this)">English</button>
+        <button class="ltab" onclick="switchHelpLang('od',this)">ଓଡ଼ିଆ</button>
+      </div>
+
+      <!-- English -->
+      <div id="help-en">
+        <div class="help-section">
+          <div class="help-section-title">Header Buttons</div>
+          <div class="help-item">
+            <div class="help-icon">☀️</div>
+            <div>
+              <div class="help-item-name">Theme Toggle (Dark / Light)</div>
+              <div class="help-item-desc">Switch between dark mode (black background) and light mode (white background). Your preference is saved automatically for next visit.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">❓</div>
+            <div>
+              <div class="help-item-name">Help Button</div>
+              <div class="help-item-desc">Opens this help dialog explaining all features. Available in English and Odia.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🌐</div>
+            <div>
+              <div class="help-item-name">EN / ଓଡ଼ Language Toggle</div>
+              <div class="help-item-desc">Switch the interface between English and Odia. Disease names, remedies and all labels will change to your chosen language.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">📋</div>
+            <div>
+              <div class="help-item-name">History Button</div>
+              <div class="help-item-desc">View all your past plant analyses — shows disease detected, confidence, and remedy for each scan. Only visible when you are logged in.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🟢</div>
+            <div>
+              <div class="help-item-name">User Chip (your name + ×)</div>
+              <div class="help-item-desc">Shows your logged-in username with a green dot. Click × to log out securely.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-section-title">Upload & Analysis</div>
+          <div class="help-item">
+            <div class="help-icon">🖼️</div>
+            <div>
+              <div class="help-item-name">Drop Zone (Upload Area)</div>
+              <div class="help-item-desc">Click to browse files, drag & drop an image onto this area, or paste an image from clipboard (Ctrl+V). Accepted formats: PNG, JPG, WEBP, BMP. Max size: 16MB.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🔬</div>
+            <div>
+              <div class="help-item-name">Analyze Plant Button</div>
+              <div class="help-item-desc">Sends your leaf image to the AI model for disease detection. The button is disabled until you upload an image. A spinner shows while processing.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-section-title">Results Panel</div>
+          <div class="help-item">
+            <div class="help-icon">✅</div>
+            <div>
+              <div class="help-item-name">Status Bar (Healthy / Disease)</div>
+              <div class="help-item-desc">Green ✅ means your plant is healthy. Orange ⚠️ means a disease was detected. Shown at the top of results.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">📊</div>
+            <div>
+              <div class="help-item-name">Confidence Bar</div>
+              <div class="help-item-desc">Shows how certain the AI is about its prediction (0–100%). Higher % means more reliable result. The bar fills visually to represent the score.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🏆</div>
+            <div>
+              <div class="help-item-name">Top 3 Predictions</div>
+              <div class="help-item-desc">The AI's top 3 guesses ranked by confidence. Helps you see if there is ambiguity between similar diseases.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">💊</div>
+            <div>
+              <div class="help-item-name">Recommended Remedy</div>
+              <div class="help-item-desc">Practical treatment advice for the detected disease — including fungicides, pesticides, or cultural practices. Shown in your selected language.</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">↩️</div>
+            <div>
+              <div class="help-item-name">Analyze Another Button</div>
+              <div class="help-item-desc">Clears the current result and resets the upload area so you can scan a new leaf image.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Odia -->
+      <div id="help-od" style="display:none">
+        <div class="help-section">
+          <div class="help-section-title">ହେଡ଼ର ବଟନ</div>
+          <div class="help-item">
+            <div class="help-icon">☀️</div>
+            <div>
+              <div class="help-item-name">ଥିମ ଟଗଲ (ଅନ୍ଧାର / ଆଲୋକ)</div>
+              <div class="help-item-desc">ଅନ୍ଧାର ମୋଡ ଏବଂ ଆଲୋକ ମୋଡ ମଧ୍ୟରେ ପରିବର୍ତ୍ତନ କରନ୍ତୁ। ଆପଣଙ୍କ ପସନ୍ଦ ସ୍ୱୟଂଚାଳିତ ଭାବେ ସଂରକ୍ଷିତ ହୁଏ।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">❓</div>
+            <div>
+              <div class="help-item-name">ସାହାଯ୍ୟ ବଟନ</div>
+              <div class="help-item-desc">ଏହି ଡାୟଲଗ ଖୋଲେ ଯାହା ସବୁ ଫିଚର ବ୍ୟାଖ୍ୟା କରେ। ଇଂଲିଶ ଏବଂ ଓଡ଼ିଆ ଉଭୟ ଭାଷାରେ ଉପଲବ୍ଧ।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🌐</div>
+            <div>
+              <div class="help-item-name">EN / ଓଡ଼ ଭାଷା ଟଗଲ</div>
+              <div class="help-item-desc">ଇଂଲିଶ ଏବଂ ଓଡ଼ିଆ ମଧ୍ୟରେ ଇଣ୍ଟରଫେସ ବଦଳାନ୍ତୁ। ରୋଗ ନାମ, ଉପଚାର ସବୁ ଆପଣ ଚୁଣିଥିବା ଭାଷାରେ ଦେଖାଯିବ।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">📋</div>
+            <div>
+              <div class="help-item-name">ଇତିହାସ ବଟନ</div>
+              <div class="help-item-desc">ଆପଣଙ୍କ ସମସ୍ତ ପୂର୍ବ ଫସଲ ବିଶ୍ଳେଷଣ ଦେଖନ୍ତୁ। ଲଗ ଇନ ହୋଇଥିଲେ ମାତ୍ର ଦେଖାଯାଏ।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🟢</div>
+            <div>
+              <div class="help-item-name">ୟୁଜ଼ର ଚିପ (ନାମ + ×)</div>
+              <div class="help-item-desc">ଆପଣଙ୍କ ଲଗ ଇନ ନାମ ଦେଖାଏ। × ଉପରେ କ୍ଲିକ କଲେ ଲଗ ଆଉଟ ହୁଏ।</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-section-title">ଅପଲୋଡ ଏବଂ ବିଶ୍ଳେଷଣ</div>
+          <div class="help-item">
+            <div class="help-icon">🖼️</div>
+            <div>
+              <div class="help-item-name">ଅପଲୋଡ ଅଞ୍ଚଳ</div>
+              <div class="help-item-desc">ଫାଇଲ ବ୍ରାଉଜ ପାଇଁ କ୍ଲିକ କରନ୍ତୁ, ଅଥବା ଇମେଜ ଟ୍ରାଗ ଏବଂ ଡ୍ରପ କରନ୍ତୁ। ଫର୍ମାଟ: PNG, JPG, WEBP, BMP। ଅଧିକତମ: 16MB।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🔬</div>
+            <div>
+              <div class="help-item-name">ଗଛ ବିଶ୍ଳେଷଣ ବଟନ</div>
+              <div class="help-item-desc">ଆପଣଙ୍କ ପତ୍ର ଫଟୋ AI ମଡ଼େଲକୁ ପଠାଏ। ଇମେଜ ଅପଲୋଡ ନ ହେଲା ପର୍ଯ୍ୟନ୍ତ ବଟନ ଅସ୍ୱୀକୃତ ଥାଏ।</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-section-title">ଫଳାଫଳ ପ୍ୟାନେଲ</div>
+          <div class="help-item">
+            <div class="help-icon">✅</div>
+            <div>
+              <div class="help-item-name">ସ୍ଥିତି ବାର</div>
+              <div class="help-item-desc">ସବୁଜ ✅ ମାନେ ଗଛ ସୁସ୍ଥ। କମଳା ⚠️ ମାନେ ରୋଗ ଚିହ୍ନଟ ହୋଇଛି।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">📊</div>
+            <div>
+              <div class="help-item-name">ନିଶ୍ଚିତତା ବାର</div>
+              <div class="help-item-desc">AI ଅନୁମାନ କେତେ ନିଶ୍ଚିତ ତା' ଦେଖାଏ (0-100%)। ଅଧିକ % ମାନେ ଅଧିକ ଭରଦ ଫଳ।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">🏆</div>
+            <div>
+              <div class="help-item-name">ଶ୍ରେଷ୍ଠ 3 ଅନୁମାନ</div>
+              <div class="help-item-desc">AI ଦ୍ୱାରା ଚିହ୍ନଟ ହୋଇଥିବା ଶ୍ରେଷ୍ଠ 3ଟି ରୋଗ, ନିଶ୍ଚିତତା ଅନୁସାରେ ଶ୍ରେଣୀ ବଦ୍ଧ।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">💊</div>
+            <div>
+              <div class="help-item-name">ଅନୁସୂଚିତ ଉପଚାର</div>
+              <div class="help-item-desc">ଚିହ୍ନଟ ରୋଗ ପାଇଁ ବ୍ୟବହାରିକ ଚିକିତ୍ସା ପ୍ରଣାଳୀ — ଫଙ୍ଗିସାଇଡ, କୀଟନାଶକ ଇତ୍ୟାଦି।</div>
+            </div>
+          </div>
+          <div class="help-item">
+            <div class="help-icon">↩️</div>
+            <div>
+              <div class="help-item-name">ଅନ୍ୟ ପତ୍ର ଯୋଡ଼ ବଟନ</div>
+              <div class="help-item-desc">ବର୍ତ୍ତମାନ ଫଳାଫଳ ସ୍ଥଗିତ ରଖି ଅପଲୋଡ ଅଞ୍ଚଳ ରିସେଟ ହୁଏ ଯଦ୍ଦ୍ୱାରା ଆପଣ ଆଉ ଏକ ଫଟୋ ଅ୍ୟନ ଲ ଯ ଶ କ ର ି ପ ା ର ି ବ ।</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="/static/js/app.js"></script>
+  <script>
+    // Help modal
+    function openHelp(){ document.getElementById('helpModal').classList.add('open'); }
+    function closeHelp(){ document.getElementById('helpModal').classList.remove('open'); }
+    function closeOnOverlay(e){ if(e.target===document.getElementById('helpModal')) closeHelp(); }
+    function switchHelpLang(lang,btn){
+      document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('help-en').style.display=lang==='en'?'block':'none';
+      document.getElementById('help-od').style.display=lang==='od'?'block':'none';
+    }
+    // Update help button label with language
+    const _origSetLang = typeof setLang !== 'undefined' ? setLang : null;
+    document.addEventListener('DOMContentLoaded',()=>{
+      const origSet = window.setLang;
+      window.setLang = function(lang){
+        origSet(lang);
+        const lbl = document.getElementById('help-btn-label');
+        if(lbl) lbl.textContent = lang==='od' ? 'ସାହାଯ୍ୟ' : 'Help';
+      };
+    });
+  </script>
 </body>
 </html>

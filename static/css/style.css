@@ -140,6 +140,8 @@ body {
 }
 
 /* User chip */
+.history-link { display:flex; align-items:center; gap:0.4rem; padding:5px 14px; background:var(--glass); border:1px solid var(--border); border-radius:50px; font-size:0.8rem; font-weight:600; color:var(--text); text-decoration:none; backdrop-filter:blur(10px); transition:all 0.2s; }
+.history-link:hover { border-color:var(--accent); color:var(--accent); }
 .user-chip {
   display: flex; align-items: center; gap: 0.4rem;
   background: var(--glass); border: 1px solid var(--border);

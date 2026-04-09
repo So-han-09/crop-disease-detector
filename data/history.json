@@ -1,0 +1,276 @@
+{
+  "satya": [
+    {
+      "id": 5,
+      "timestamp": "24 Mar 2026, 07:30 AM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "ଆଳୁ ଆଗୁଆ ଝଳସା",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "କ୍ଲୋରୋଥାଲୋନିଲ ବା ମ୍ୟାଙ୍କୋଜେବ ଛତୁ ନାଶକ ପ୍ରୟୋଗ କରନ୍ତୁ। ଫସଲ ବଦଳ କରନ୍ତୁ। ପ୍ରମାଣୀତ ରୋଗ ମୁକ୍ତ ଆଳୁ ବ୍ୟବହାର କରନ୍ତୁ।",
+      "language": "ଓଡ଼ିଆ"
+    },
+    {
+      "id": 4,
+      "timestamp": "24 Mar 2026, 07:30 AM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "Potato - Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply chlorothalonil or mancozeb fungicides. Rotate crops. Use certified disease-free seed tubers. Ensure proper plant nutrition. Remove infected leaves promptly.",
+      "language": "English"
+    },
+    {
+      "id": 3,
+      "timestamp": "23 Mar 2026, 05:10 PM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "ଶୀମଳା ମରିଚ ଜୀବାଣୁ ଦାଗ",
+      "confidence": 99.95,
+      "is_healthy": false,
+      "remedy": "ତମ୍ବା ଆଧାରିତ ଜୀବାଣୁ ନାଶକ ଏବଂ ମ୍ୟାଙ୍କୋଜେବ ବ୍ୟବହାର କରନ୍ତୁ। ରୋଗ ମୁକ୍ତ ବିହନ ଲଗାନ୍ତୁ। ଉପର ଦିଗ ଜଳ ସେଚନ ଏଡ଼ାନ୍ତୁ। ଫସଲ ବଦଳ ଅଭ୍ୟାସ କରନ୍ତୁ।",
+      "language": "ଓଡ଼ିଆ"
+    },
+    {
+      "id": 2,
+      "timestamp": "23 Mar 2026, 05:10 PM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "Pepper  bell - Bacterial spot",
+      "confidence": 99.95,
+      "is_healthy": false,
+      "remedy": "Apply copper-based bactericides and mancozeb. Use disease-free seeds. Avoid overhead irrigation. Practice crop rotation with non-solanaceous crops. Remove and destroy infected plants.",
+      "language": "English"
+    },
+    {
+      "id": 1,
+      "timestamp": "23 Mar 2026, 05:01 PM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "Pepper  bell - Bacterial spot",
+      "confidence": 99.95,
+      "is_healthy": false,
+      "remedy": "Apply copper-based bactericides and mancozeb. Use disease-free seeds. Avoid overhead irrigation. Practice crop rotation with non-solanaceous crops. Remove and destroy infected plants.",
+      "language": "English"
+    }
+  ],
+  "sohan": [
+    {
+      "id": 22,
+      "timestamp": "07 Apr 2026, 04:40 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "ଟମାଟୋ ଆଗୁଆ ଝଳସା",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "ସଂକ୍ରମିତ ତଳ ପତ୍ର ଅପସାରଣ ଓ ନଷ୍ଟ କରନ୍ତୁ। ଛତୁ ନାଶକ ପ୍ରୟୋଗ କରନ୍ତୁ। ଅଧିକ ଜଳ ସେଚନ ଏଡ଼ାନ୍ତୁ।",
+      "language": "ଓଡ଼ିଆ"
+    },
+    {
+      "id": 21,
+      "timestamp": "07 Apr 2026, 04:39 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "Tomato Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Remove and destroy infected lower leaves. Apply fungicides (chlorothalonil, mancozeb). Mulch around plants. Ensure proper plant nutrition and avoid over-watering.",
+      "language": "English"
+    },
+    {
+      "id": 20,
+      "timestamp": "07 Apr 2026, 04:14 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "Tomato Early blight",
+      "confidence": 99.99,
+      "is_healthy": false,
+      "remedy": "Remove and destroy infected lower leaves. Apply fungicides (chlorothalonil, mancozeb). Mulch around plants. Ensure proper plant nutrition and avoid over-watering.",
+      "language": "English"
+    },
+    {
+      "id": 19,
+      "timestamp": "07 Apr 2026, 04:13 PM",
+      "disease_en": "Tomato Septoria leaf spot",
+      "disease_od": "Tomato Septoria leaf spot",
+      "confidence": 99.49,
+      "is_healthy": false,
+      "remedy": "Apply fungicides (chlorothalonil, mancozeb, copper). Remove infected lower leaves. Avoid overhead irrigation. Mulch to prevent soil splash. Practice crop rotation.",
+      "language": "English"
+    },
+    {
+      "id": 18,
+      "timestamp": "07 Apr 2026, 04:12 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "Tomato Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Remove and destroy infected lower leaves. Apply fungicides (chlorothalonil, mancozeb). Mulch around plants. Ensure proper plant nutrition and avoid over-watering.",
+      "language": "English"
+    },
+    {
+      "id": 17,
+      "timestamp": "07 Apr 2026, 04:10 PM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "ଶୀମଳା ମରିଚ ଜୀବାଣୁ ଦାଗ",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "ତମ୍ବା ଆଧାରିତ ଜୀବାଣୁ ନାଶକ ଏବଂ ମ୍ୟାଙ୍କୋଜେବ ବ୍ୟବହାର କରନ୍ତୁ। ରୋଗ ମୁକ୍ତ ବିହନ ଲଗାନ୍ତୁ। ଉପର ଦିଗ ଜଳ ସେଚନ ଏଡ଼ାନ୍ତୁ। ଫସଲ ବଦଳ ଅଭ୍ୟାସ କରନ୍ତୁ।",
+      "language": "ଓଡ଼ିଆ"
+    },
+    {
+      "id": 16,
+      "timestamp": "07 Apr 2026, 04:09 PM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "Pepper  bell - Bacterial spot",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply copper-based bactericides and mancozeb. Use disease-free seeds. Avoid overhead irrigation. Practice crop rotation with non-solanaceous crops. Remove and destroy infected plants.",
+      "language": "English"
+    },
+    {
+      "id": 15,
+      "timestamp": "07 Apr 2026, 04:08 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "Tomato Early blight",
+      "confidence": 98.96,
+      "is_healthy": false,
+      "remedy": "Remove and destroy infected lower leaves. Apply fungicides (chlorothalonil, mancozeb). Mulch around plants. Ensure proper plant nutrition and avoid over-watering.",
+      "language": "English"
+    },
+    {
+      "id": 14,
+      "timestamp": "07 Apr 2026, 04:08 PM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "Potato - Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply chlorothalonil or mancozeb fungicides. Rotate crops. Use certified disease-free seed tubers. Ensure proper plant nutrition. Remove infected leaves promptly.",
+      "language": "English"
+    },
+    {
+      "id": 13,
+      "timestamp": "07 Apr 2026, 04:06 PM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "Potato - Early blight",
+      "confidence": 99.81,
+      "is_healthy": false,
+      "remedy": "Apply chlorothalonil or mancozeb fungicides. Rotate crops. Use certified disease-free seed tubers. Ensure proper plant nutrition. Remove infected leaves promptly.",
+      "language": "English"
+    },
+    {
+      "id": 12,
+      "timestamp": "07 Apr 2026, 04:06 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "Tomato Early blight",
+      "confidence": 98.96,
+      "is_healthy": false,
+      "remedy": "Remove and destroy infected lower leaves. Apply fungicides (chlorothalonil, mancozeb). Mulch around plants. Ensure proper plant nutrition and avoid over-watering.",
+      "language": "English"
+    },
+    {
+      "id": 11,
+      "timestamp": "31 Mar 2026, 03:39 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "Tomato Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Remove and destroy infected lower leaves. Apply fungicides (chlorothalonil, mancozeb). Mulch around plants. Ensure proper plant nutrition and avoid over-watering.",
+      "language": "English"
+    },
+    {
+      "id": 10,
+      "timestamp": "31 Mar 2026, 03:37 PM",
+      "disease_en": "Tomato Early blight",
+      "disease_od": "Tomato Early blight",
+      "confidence": 68.76,
+      "is_healthy": false,
+      "remedy": "Remove and destroy infected lower leaves. Apply fungicides (chlorothalonil, mancozeb). Mulch around plants. Ensure proper plant nutrition and avoid over-watering.",
+      "language": "English"
+    },
+    {
+      "id": 9,
+      "timestamp": "31 Mar 2026, 03:09 PM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "Potato - Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply chlorothalonil or mancozeb fungicides. Rotate crops. Use certified disease-free seed tubers. Ensure proper plant nutrition. Remove infected leaves promptly.",
+      "language": "English"
+    },
+    {
+      "id": 8,
+      "timestamp": "31 Mar 2026, 03:09 PM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "ଆଳୁ ଆଗୁଆ ଝଳସା",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "କ୍ଲୋରୋଥାଲୋନିଲ ବା ମ୍ୟାଙ୍କୋଜେବ ଛତୁ ନାଶକ ପ୍ରୟୋଗ କରନ୍ତୁ। ଫସଲ ବଦଳ କରନ୍ତୁ। ପ୍ରମାଣୀତ ରୋଗ ମୁକ୍ତ ଆଳୁ ବ୍ୟବହାର କରନ୍ତୁ।",
+      "language": "ଓଡ଼ିଆ"
+    },
+    {
+      "id": 7,
+      "timestamp": "31 Mar 2026, 03:09 PM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "Potato - Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply chlorothalonil or mancozeb fungicides. Rotate crops. Use certified disease-free seed tubers. Ensure proper plant nutrition. Remove infected leaves promptly.",
+      "language": "English"
+    },
+    {
+      "id": 6,
+      "timestamp": "31 Mar 2026, 02:44 PM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "ଶୀମଳା ମରିଚ ଜୀବାଣୁ ଦାଗ",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "ତମ୍ବା ଆଧାରିତ ଜୀବାଣୁ ନାଶକ ଏବଂ ମ୍ୟାଙ୍କୋଜେବ ବ୍ୟବହାର କରନ୍ତୁ। ରୋଗ ମୁକ୍ତ ବିହନ ଲଗାନ୍ତୁ। ଉପର ଦିଗ ଜଳ ସେଚନ ଏଡ଼ାନ୍ତୁ। ଫସଲ ବଦଳ ଅଭ୍ୟାସ କରନ୍ତୁ।",
+      "language": "ଓଡ଼ିଆ"
+    },
+    {
+      "id": 5,
+      "timestamp": "31 Mar 2026, 02:44 PM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "Pepper  bell - Bacterial spot",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply copper-based bactericides and mancozeb. Use disease-free seeds. Avoid overhead irrigation. Practice crop rotation with non-solanaceous crops. Remove and destroy infected plants.",
+      "language": "English"
+    },
+    {
+      "id": 4,
+      "timestamp": "30 Mar 2026, 11:48 AM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "Pepper  bell - Bacterial spot",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply copper-based bactericides and mancozeb. Use disease-free seeds. Avoid overhead irrigation. Practice crop rotation with non-solanaceous crops. Remove and destroy infected plants.",
+      "language": "English"
+    },
+    {
+      "id": 3,
+      "timestamp": "30 Mar 2026, 11:48 AM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "ଶୀମଳା ମରିଚ ଜୀବାଣୁ ଦାଗ",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "ତମ୍ବା ଆଧାରିତ ଜୀବାଣୁ ନାଶକ ଏବଂ ମ୍ୟାଙ୍କୋଜେବ ବ୍ୟବହାର କରନ୍ତୁ। ରୋଗ ମୁକ୍ତ ବିହନ ଲଗାନ୍ତୁ। ଉପର ଦିଗ ଜଳ ସେଚନ ଏଡ଼ାନ୍ତୁ। ଫସଲ ବଦଳ ଅଭ୍ୟାସ କରନ୍ତୁ।",
+      "language": "ଓଡ଼ିଆ"
+    },
+    {
+      "id": 2,
+      "timestamp": "24 Mar 2026, 11:39 AM",
+      "disease_en": "Potato - Early blight",
+      "disease_od": "Potato - Early blight",
+      "confidence": 100.0,
+      "is_healthy": false,
+      "remedy": "Apply chlorothalonil or mancozeb fungicides. Rotate crops. Use certified disease-free seed tubers. Ensure proper plant nutrition. Remove infected leaves promptly.",
+      "language": "English"
+    },
+    {
+      "id": 1,
+      "timestamp": "24 Mar 2026, 11:38 AM",
+      "disease_en": "Pepper  bell - Bacterial spot",
+      "disease_od": "Pepper  bell - Bacterial spot",
+      "confidence": 99.95,
+      "is_healthy": false,
+      "remedy": "Apply copper-based bactericides and mancozeb. Use disease-free seeds. Avoid overhead irrigation. Practice crop rotation with non-solanaceous crops. Remove and destroy infected plants.",
+      "language": "English"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>History | Crop Disease Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    [data-theme="dark"]{--bg:#060818;--glass:rgba(255,255,255,0.05);--glass2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.1);--text:#f0f0ff;--muted:rgba(255,255,255,0.45);--accent:#818cf8;--green:#10b981;--orange:#f59e0b;--red:#ef4444;--card:#1a2e22;--shadow:rgba(0,0,0,0.5);}
+    [data-theme="light"]{--bg:#f0f2ff;--glass:rgba(255,255,255,0.65);--glass2:rgba(255,255,255,0.8);--border:rgba(99,102,241,0.15);--text:#1e1b4b;--muted:rgba(30,27,75,0.5);--accent:#6366f1;--green:#059669;--orange:#d97706;--red:#dc2626;--card:#e8f5e9;--shadow:rgba(99,102,241,0.15);}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+    .orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:0.6;pointer-events:none;}
+    .orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(99,102,241,0.4),transparent);top:-200px;left:-200px;}
+    .orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(16,185,129,0.3),transparent);bottom:-100px;right:-100px;}
+    .app{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:1.5rem 1.25rem 4rem;}
+
+    /* Header */
+    .header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:0.5rem 0 1.5rem;}
+    .brand{display:flex;align-items:center;gap:0.75rem;}
+    .brand-icon{font-size:2rem;}
+    .brand-name{font-size:1.3rem;font-weight:800;letter-spacing:-0.5px;}
+    .brand-sub{font-size:0.72rem;color:var(--muted);}
+    .header-actions{display:flex;align-items:center;gap:0.6rem;}
+    .icon-btn{width:38px;height:38px;border-radius:50%;background:var(--glass);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s;backdrop-filter:blur(10px);text-decoration:none;}
+    .icon-btn:hover{border-color:var(--accent);}
+    .back-btn{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:var(--glass);border:1px solid var(--border);border-radius:50px;color:var(--text);text-decoration:none;font-size:0.85rem;font-weight:600;transition:all 0.2s;backdrop-filter:blur(10px);}
+    .back-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .user-chip{display:flex;align-items:center;gap:0.4rem;background:var(--glass);border:1px solid var(--border);border-radius:50px;padding:5px 12px 5px 8px;font-size:0.8rem;font-weight:600;backdrop-filter:blur(10px);}
+    .user-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 2s ease-in-out infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+    .logout-btn{color:var(--muted);text-decoration:none;font-size:1.1rem;margin-left:4px;transition:color 0.2s;}
+    .logout-btn:hover{color:var(--red);}
+
+    /* Page title */
+    .page-title{font-size:1.8rem;font-weight:800;margin-bottom:0.3rem;}
+    .page-sub{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;}
+
+    /* Stats row */
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+    .stat-card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px;padding:1rem;text-align:center;}
+    .stat-num{font-size:2rem;font-weight:800;color:var(--accent);}
+    .stat-label{font-size:0.75rem;color:var(--muted);margin-top:0.2rem;}
+
+    /* History cards */
+    .history-list{display:flex;flex-direction:column;gap:1rem;}
+    .h-card{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px;padding:1.25rem;animation:cardIn 0.3s ease both;}
+    @keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .h-card-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;}
+    .h-badge{padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:700;}
+    .h-badge.healthy{background:rgba(16,185,129,0.15);color:var(--green);border:1px solid rgba(16,185,129,0.3);}
+    .h-badge.disease{background:rgba(245,158,11,0.12);color:var(--orange);border:1px solid rgba(245,158,11,0.25);}
+    .h-time{font-size:0.75rem;color:var(--muted);}
+    .h-id{font-size:0.72rem;color:var(--muted);}
+    .h-disease{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;}
+    .h-disease-od{font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;}
+    .h-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .h-conf{font-size:0.82rem;font-weight:600;color:var(--accent);}
+    .h-lang{font-size:0.82rem;color:var(--muted);}
+    .h-remedy{margin-top:0.75rem;padding:0.75rem;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;font-size:0.83rem;color:var(--text);line-height:1.6;}
+    .h-remedy-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--orange);font-weight:700;margin-bottom:0.3rem;}
+
+    /* Empty state */
+    .empty{text-align:center;padding:4rem 1rem;}
+    .empty-icon{font-size:4rem;margin-bottom:1rem;}
+    .empty-title{font-size:1.2rem;font-weight:700;margin-bottom:0.5rem;}
+    .empty-sub{font-size:0.85rem;color:var(--muted);}
+
+    /* Clear button */
+    .clear-form{margin-bottom:1rem;display:flex;justify-content:flex-end;}
+    .clear-btn{padding:0.5rem 1.25rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:50px;color:var(--red);font-family:'Outfit',sans-serif;font-size:0.83rem;font-weight:600;cursor:pointer;transition:all 0.2s;}
+    .clear-btn:hover{background:rgba(239,68,68,0.2);}
+
+    /* Flash */
+    .flash{background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:0.75rem 1rem;border-radius:10px;font-size:0.85rem;margin-bottom:1rem;text-align:center;}
+
+    @media(max-width:520px){.stats-row{grid-template-columns:1fr;}.header{flex-direction:column;align-items:flex-start;}}
+  </style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<div class="app">
+  <div class="header">
+    <div class="brand">
+      <span class="brand-icon">🌿</span>
+      <div>
+        <div class="brand-name">Crop Disease AI</div>
+        <div class="brand-sub">Analysis History</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme"><span id="theme-icon">☀️</span></button>
+      <a href="/" class="back-btn">← Back to App</a>
+      <div class="user-chip">
+        <span class="user-dot"></span>
+        <span>{{ username }}</span>
+        <a href="/logout" class="logout-btn">×</a>
+      </div>
+    </div>
+  </div>
+
+  {% with messages = get_flashed_messages() %}{% if messages %}<div class="flash">{{ messages[0] }}</div>{% endif %}{% endwith %}
+
+  <div class="page-title">📋 My Analysis History</div>
+  <div class="page-sub">All your past plant disease analyses — newest first</div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">{{ history|length }}</div>
+      <div class="stat-label">Total Analyses</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#10b981">{{ history|selectattr('is_healthy')|list|length }}</div>
+      <div class="stat-label">Healthy Plants</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#f59e0b">{{ history|rejectattr('is_healthy')|list|length }}</div>
+      <div class="stat-label">Diseases Found</div>
+    </div>
+  </div>
+
+  {% if history %}
+  <!-- Clear history button -->
+  <div class="clear-form">
+    <form method="POST" action="/history/clear" onsubmit="return confirm('Clear all history?')">
+      <button type="submit" class="clear-btn">🗑️ Clear All History</button>
+    </form>
+  </div>
+
+  <!-- History list -->
+  <div class="history-list">
+    {% for item in history %}
+    <div class="h-card" style="animation-delay: {{ loop.index0 * 0.05 }}s">
+      <div class="h-card-top">
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <span class="h-badge {% if item.is_healthy %}healthy{% else %}disease{% endif %}">
+            {% if item.is_healthy %}✅ Healthy{% else %}⚠️ Disease{% endif %}
+          </span>
+          <span class="h-id">#{{ item.id }}</span>
+        </div>
+        <span class="h-time">🕐 {{ item.timestamp }}</span>
+      </div>
+      <div class="h-disease">{{ item.disease_en }}</div>
+      {% if item.disease_od and item.disease_od != item.disease_en %}
+      <div class="h-disease-od">{{ item.disease_od }}</div>
+      {% endif %}
+      <div class="h-meta">
+        <span class="h-conf">📊 {{ item.confidence }}% confidence</span>
+        <span class="h-lang">🌐 {{ item.language }}</span>
+      </div>
+      {% if not item.is_healthy and item.remedy %}
+      <div class="h-remedy">
+        <div class="h-remedy-label">💊 Remedy</div>
+        {{ item.remedy }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <!-- Empty state -->
+  <div class="empty">
+    <div class="empty-icon">🌱</div>
+    <div class="empty-title">No analyses yet!</div>
+    <div class="empty-sub">Upload a leaf image on the main page to start detecting diseases. Your history will appear here.</div>
+  </div>
+  {% endif %}
+
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('theme-icon').textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('theme', dark ? 'light' : 'dark');
+}
+const saved = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', saved);
+document.getElementById('theme-icon').textContent = saved === 'dark' ? '☀️' : '🌙';
+</script>
+</body>
+</html>

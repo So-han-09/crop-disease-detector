@@ -83,6 +83,20 @@ function renderResult(data) {
   setTimeout(() => { document.getElementById('conf-bar').style.width = Math.min(pct,100)+'%'; }, 100);
   document.getElementById('res-language').textContent = data.language||'—';
 
+  // Severity
+  const sevEl = document.getElementById('severity-box');
+  if (sevEl && data.severity_level) {
+    const colorMap = { green:'#10b981', lime:'#4ade80', yellow:'#f59e0b', orange:'#f97316', red:'#ef4444' };
+    const col = colorMap[data.severity_color] || '#818cf8';
+    sevEl.style.display = 'flex';
+    sevEl.style.borderColor = col;
+    sevEl.style.background = col + '18';
+    document.getElementById('sev-icon').textContent = data.severity_icon || '🔬';
+    document.getElementById('sev-level').textContent = data.severity_level;
+    document.getElementById('sev-level').style.color = col;
+    document.getElementById('sev-advice').textContent = data.severity_advice || '';
+  }
+
   const list = document.getElementById('top3-list'); list.innerHTML = '';
   (data.top3||[]).forEach((item,i) => {
     const li = document.createElement('li'); li.className='top3-item'; li.style.animationDelay=(i*0.08)+'s';
