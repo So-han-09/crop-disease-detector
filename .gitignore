@@ -4,4 +4,5 @@ models/plant_model.keras
 __pycache__/
 *.pyc
 *.pyo
-static/uploads/
+static/uploads/venv/
+models/
